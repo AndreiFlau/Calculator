@@ -1,0 +1,40 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+h1 {
+    margin-bottom: 200px;
+}
+
+.calculator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: darkred 1px solid;
+    height: 200px;
+    width: 200px;
+}
+
+.calculator #display {
+    border: mistyrose 1px solid;
+    font-size: 30px;
+}
+
+.calculator button {
+    flex-direction: row;
+    box-sizing: border-box;
+    font-size: 30px;
+}
+
+.calculator .numbers {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.calculator .symbols {
+    display: flex;
+    flex-wrap: wrap;
+}
