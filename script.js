@@ -33,11 +33,45 @@ function appendToDisplay(symbol) {
   const operators = ["+", "-", "*", "/"];
   const numValue = symbol.textContent;
   display.textContent = "";
+  let displayArray = displayValue.split("+");
   symbol.addEventListener("click", () => {
-    display.textContent += numValue;
-    displayValue = display.textContent;
+    if (operators.some(operator => displayValue.includes(operator))) {
+      if (displayArray.length > 1) {
+        if (displayValue.includes("+")) {
+          let array = displayValue.split("+");
+          if (array.length > 1) {
+            display.textContent = operate("+", array[0], array[1]);
+            displayValue = display.textContent;
+          }
+        }
+        else if (displayValue.includes("-")) {
+          let array = displayValue.split("-");
+          if (array.length > 1) {
+            display.textContent = operate("-", array[0], array[1]);
+            displayValue = display.textContent;
+          }
+        }
+        else if (displayValue.includes("*")) {
+          let array = displayValue.split("*");
+          if (array.length > 1) {
+            display.textContent = operate("*", array[0], array[1]);
+            displayValue = display.textContent;
+          }
+        }
+        else if (displayValue.includes("/")) {
+          let array = displayValue.split("/");
+          if (array.length > 1) {
+            display.textContent = operate("/", array[0], array[1]);
+            displayValue = display.textContent;
+          }
+        }
+      }
+    }
+    else {
+      display.textContent += numValue;
+      displayValue = display.textContent;
+    }
   });
-
 }
 
 console.log(add(5, 5));
@@ -75,5 +109,9 @@ appendToDisplay(number6);
 appendToDisplay(number7);
 appendToDisplay(number8);
 appendToDisplay(number9);
+appendToDisplay(addElement);
+appendToDisplay(subtractElement);
+appendToDisplay(multiplyElement);
+appendToDisplay(divideElement);
 
 console.log(operate(operator, num1, num2));
