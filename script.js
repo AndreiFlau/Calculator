@@ -31,62 +31,64 @@ function operate(operator, num1, num2) {
   }
 }
 
-function calculate() {
-  if (displayValue.includes("+")) {
-    let array = displayValue.split("+");
-    if (array.length >= 1) {
-      display.textContent = operate("+", array[0], array[1]);
-      displayValue = display.textContent;
-    }
+function calculate(num1, num2) {
+  let number1 = Number(num1);
+  let number2 = Number(num2);
+
+  if (operatorVar === "+") {
+    return operate("+", number1, number2);
   }
-  else if (displayValue.includes("-")) {
-    let array = displayValue.split("-");
-    if (array.length >= 1) {
-      display.textContent = operate("-", array[0], array[1]);
-      displayValue = display.textContent;
-    }
+
+  else if (operatorVar === "-") {
+    return operate("-", number1, number2);
   }
-  else if (displayValue.includes("*")) {
-    let array = displayValue.split("*");
-    if (array.length >= 1) {
-      display.textContent = operate("*", array[0], array[1]);
-      displayValue = display.textContent;
-    }
+  else if (operatorVar === "*") {
+    return operate("*", number1, number2);
   }
-  else if (displayValue.includes("/")) {
-    let array = displayValue.split("/");
-    if (array.length >= 1) {
-      display.textContent = operate("/", array[0], array[1]);
-      displayValue = display.textContent;
-    }
+  else if (operatorVar === "/") {
+    return operate("/", number1, number2);
   }
 }
 
 function appendToDisplay(symbol) {
-  const operators = ["+", "-", "*", "/"];
   const numValue = symbol.textContent;
   display.textContent = "";
   symbol.addEventListener("click", () => {
-    displayValue = display.textContent;
-    let foundOperator = operators.find(
-      operator => displayValue.includes(operator));
-    if (operators.includes(foundOperator)) {
-      foundOperator = "\\" + foundOperator;
-    }
-    let array = displayValue.split(new RegExp(`(${foundOperator})`));
-    console.log(array);
     if (symbol.textContent === "X") {
       displayValue = "";
       display.textContent = "";
+      num1 = "";
+      num2 = "";
+      operatorVar = "";
     }
     else if (symbol.textContent === "=") {
-      calculate();
+      const result = calculate(num1, num2);
+      display.textContent = result;
+      displayValue = result;
+      num1 = `${result}`;
+      num2 = "";
+      operatorVar = "";
     }
-    else if (array.length > 3) {
-      calculate();
-    }
-    else {
+    else if (operatorVar.length === 0) {
       display.textContent += numValue;
+      displayValue = display.textContent;
+      num1 += numValue;
+    }
+    else if (operatorVar.length === 1) {
+      display.textContent += numValue;
+      displayValue = display.textContent;
+      num2 += numValue;
+    }
+  });
+}
+
+function appendOperator(operator) {
+  const operatorSymbol = operator.textContent;
+  operator.addEventListener("click", () => {
+    if (operatorVar === "" && num1.length > 0) {
+      display.textContent += operatorSymbol;
+      displayValue += operatorSymbol;
+      operatorVar = operatorSymbol;
     }
   });
 }
@@ -97,9 +99,9 @@ console.log(multiply(5, 5));
 console.log(divide(5, 5));
 
 let displayValue = "";
-let num1 = 0;
-let operator = "";
-let num2 = 0;
+let num1 = "";
+let operatorVar = "";
+let num2 = "";
 
 const display = document.querySelector("#display");
 const number1 = document.querySelector("#one");
@@ -131,11 +133,11 @@ appendToDisplay(number7);
 appendToDisplay(number8);
 appendToDisplay(number9);
 appendToDisplay(zero);
-appendToDisplay(addElement);
-appendToDisplay(subtractElement);
-appendToDisplay(multiplyElement);
-appendToDisplay(divideElement);
+appendOperator(addElement);
+appendOperator(subtractElement);
+appendOperator(multiplyElement);
+appendOperator(divideElement);
 appendToDisplay(calculateElement);
 appendToDisplay(clear);
 
-console.log(operate(operator, num1, num2));
+console.log(operate(operatorVar, num1, num2));
