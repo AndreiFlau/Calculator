@@ -11,7 +11,12 @@ function multiply(num1, num2) {
 }
 
 function divide(num1, num2) {
-  return num1 / num2;
+  if ((num1 / num2).toString().length > 10) {
+    return (num1 / num2).toFixed(10);
+  }
+  else {
+    return num1 / num2;
+  }
 }
 
 function operate(operator, num1, num2) {
@@ -61,7 +66,22 @@ function appendToDisplay(symbol) {
       num2 = "";
       operatorVar = "";
     }
-    else if (symbol.textContent === "=") {
+    else if (symbol.textContent === backspace.textContent) {
+      display.textContent = display.textContent.slice(0, -1);
+      if (typeof displayValue === "string") {
+        displayValue = displayValue.slice(0, -1);
+      }
+      if (num2.length > 0) {
+        num2 = num2.slice(0, -1);
+      }
+      else if (num2.length === 0 && operatorVar.length > 0) {
+        operatorVar = "";
+      }
+      else if (num1.length > 0) {
+        num1 = num1.slice(0, -1);
+      }
+    }
+    else if (symbol.textContent === "=" && num1.length > 0 && num2.length > 0) {
       const result = calculate(num1, num2);
       display.textContent = result;
       displayValue = result;
@@ -69,12 +89,12 @@ function appendToDisplay(symbol) {
       num2 = "";
       operatorVar = "";
     }
-    else if (operatorVar.length === 0) {
+    else if (operatorVar.length === 0 && symbol.textContent !== "=") {
       display.textContent += numValue;
       displayValue = display.textContent;
       num1 += numValue;
     }
-    else if (operatorVar.length === 1) {
+    else if (operatorVar.length === 1 && symbol.textContent !== "=") {
       display.textContent += numValue;
       displayValue = display.textContent;
       num2 += numValue;
@@ -122,6 +142,7 @@ const divideElement = document.querySelector("#divide");
 
 const calculateElement = document.querySelector("#calculate");
 const clear = document.querySelector("#clear");
+const backspace = document.querySelector("#backspace");
 
 appendToDisplay(number1);
 appendToDisplay(number2);
@@ -139,5 +160,6 @@ appendOperator(multiplyElement);
 appendOperator(divideElement);
 appendToDisplay(calculateElement);
 appendToDisplay(clear);
+appendToDisplay(backspace);
 
 console.log(operate(operatorVar, num1, num2));
