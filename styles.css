@@ -1,8 +1,9 @@
 body {
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    font-family: "Roboto", sans-serif;
 }
 
 h1 {
@@ -12,29 +13,43 @@ h1 {
 .calculator {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    border: darkred 1px solid;
-    height: 200px;
-    width: 200px;
+    width: 300px;
+    height: 400px;
+    border: black 3px solid;
+    border-radius: 5px;
+    font-size: 30px;
 }
 
 .calculator #display {
-    border: mistyrose 1px solid;
-    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 8px;
 }
 
 .calculator button {
-    flex-direction: row;
-    box-sizing: border-box;
-    font-size: 30px;
+    flex: 1;
+    height: 50px;
+    margin: 3px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 25px;
 }
 
-.calculator .numbers {
+.calculator .row {
     display: flex;
-    flex-wrap: wrap;
 }
 
-.calculator .symbols {
+.calculator .allrows {
     display: flex;
-    flex-wrap: wrap;
+    flex: 1;
+    background-color: lightgrey;
+    border-top: black 3px solid;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.calculator .delete {
+    display: flex;
+    align-items: flex-end;
 }
