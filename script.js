@@ -89,11 +89,13 @@ function appendToDisplay(symbol) {
       num2 = "";
       operatorVar = "";
     }
+
     else if (operatorVar.length === 0 && symbol.textContent !== "=") {
       display.textContent += numValue;
       displayValue = display.textContent;
       num1 += numValue;
     }
+
     else if (operatorVar.length === 1 && symbol.textContent !== "=") {
       display.textContent += numValue;
       displayValue = display.textContent;
@@ -142,7 +144,9 @@ const divideElement = document.querySelector("#divide");
 
 const calculateElement = document.querySelector("#calculate");
 const clear = document.querySelector("#clear");
+
 const backspace = document.querySelector("#backspace");
+
 
 appendToDisplay(number1);
 appendToDisplay(number2);
@@ -160,6 +164,8 @@ appendOperator(multiplyElement);
 appendOperator(divideElement);
 appendToDisplay(calculateElement);
 appendToDisplay(clear);
+
 appendToDisplay(backspace);
+
 
 console.log(operate(operatorVar, num1, num2));
